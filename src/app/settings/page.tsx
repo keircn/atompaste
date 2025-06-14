@@ -74,30 +74,53 @@ export default function SettingsPage() {
     setLoading(true);
 
     try {
+      const profileData = {
+        displayName: settings.displayName,
+        bio: settings.bio,
+      };
+
       const response = await fetch('/api/user/settings', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(settings),
+        body: JSON.stringify(profileData),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to update settings');
+        throw new Error(data.error || 'Failed to update profile');
       }
 
-      if (settings.theme !== theme) {
-        setTheme(settings.theme as 'light' | 'dark' | 'system');
-      }
-
-      setSuccess('Settings updated successfully!');
+      setSuccess('Profile updated successfully!');
       setTimeout(() => setSuccess(''), 3000);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to update settings');
+      setError(err instanceof Error ? err.message : 'Failed to update profile');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const updateSetting = async (settingData: Partial<UserSettings>) => {
+    try {
+      const response = await fetch('/api/user/settings', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(settingData),
+      });
+
+      if (!response.ok) {
+        console.error('Failed to update setting');
+      }
+
+      if (settingData.theme && settingData.theme !== theme) {
+        setTheme(settingData.theme as 'light' | 'dark' | 'system');
+      }
+    } catch (error) {
+      console.error('Error updating setting:', error);
     }
   };
 
@@ -252,6 +275,10 @@ export default function SettingsPage() {
                     </div>
                   )}
 
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Changes to preferences, privacy, and notifications are saved automatically.
+                  </p>
+
                   <Button type="submit" disabled={loading} className="w-full">
                     {loading ? (
                       <>
@@ -285,7 +312,10 @@ export default function SettingsPage() {
                   <Label htmlFor="theme">Theme</Label>
                   <Select
                     value={settings.theme}
-                    onValueChange={(value) => setSettings(prev => ({ ...prev, theme: value }))}
+                    onValueChange={(value) => {
+                      setSettings(prev => ({ ...prev, theme: value }));
+                      updateSetting({ theme: value });
+                    }}
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -307,7 +337,10 @@ export default function SettingsPage() {
                   </div>
                   <Switch
                     checked={settings.defaultPastePublic}
-                    onCheckedChange={(checked) => setSettings(prev => ({ ...prev, defaultPastePublic: checked }))}
+                    onCheckedChange={(checked) => {
+                      setSettings(prev => ({ ...prev, defaultPastePublic: checked }));
+                      updateSetting({ defaultPastePublic: checked });
+                    }}
                   />
                 </div>
               </CardContent>
@@ -334,7 +367,10 @@ export default function SettingsPage() {
                   </div>
                   <Switch
                     checked={settings.showEmail}
-                    onCheckedChange={(checked) => setSettings(prev => ({ ...prev, showEmail: checked }))}
+                    onCheckedChange={(checked) => {
+                      setSettings(prev => ({ ...prev, showEmail: checked }));
+                      updateSetting({ showEmail: checked });
+                    }}
                   />
                 </div>
 
@@ -347,7 +383,10 @@ export default function SettingsPage() {
                   </div>
                   <Switch
                     checked={settings.allowPublicProfile}
-                    onCheckedChange={(checked) => setSettings(prev => ({ ...prev, allowPublicProfile: checked }))}
+                    onCheckedChange={(checked) => {
+                      setSettings(prev => ({ ...prev, allowPublicProfile: checked }));
+                      updateSetting({ allowPublicProfile: checked });
+                    }}
                   />
                 </div>
               </CardContent>
@@ -374,7 +413,10 @@ export default function SettingsPage() {
                   </div>
                   <Switch
                     checked={settings.emailNotifications}
-                    onCheckedChange={(checked) => setSettings(prev => ({ ...prev, emailNotifications: checked }))}
+                    onCheckedChange={(checked) => {
+                      setSettings(prev => ({ ...prev, emailNotifications: checked }));
+                      updateSetting({ emailNotifications: checked });
+                    }}
                   />
                 </div>
               </CardContent>
