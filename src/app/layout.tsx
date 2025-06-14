@@ -15,8 +15,30 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://atom.slop.sh"),
   title: "atompaste",
   description: "Free and open-source pastebin for developers",
+  openGraph: {
+    title: "atompaste",
+    description: "Free and open-source pastebin for developers",
+    url: "https://atom.slop.sh",
+    siteName: "atompaste",
+    /* images: [
+      {
+        url: "https://atom.slop.sh/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "atompaste - Free and open-source pastebin for developers",
+      },
+    ], */
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "atompaste",
+    description: "Free and open-source pastebin for developers",
+  },
 };
 
 export default function RootLayout({
