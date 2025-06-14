@@ -13,8 +13,9 @@ import { Textarea } from '~/components/ui/textarea';
 import { Switch } from '~/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select';
 import { Separator } from '~/components/ui/separator';
-import { LogOut, Save, Lock, User, Bell, Eye, Palette } from 'lucide-react';
+import { LogOut, Save, Lock, User, Bell, Eye, Palette, Key } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { ApiKeyCard } from '~/components/api-keys/ApiKeyCard';
 import { 
   pageVariants, 
   cardVariants, 
@@ -499,6 +500,14 @@ export default function SettingsPage() {
                 </div>
               </CardContent>
             </Card>
+            </motion.div>
+
+            <motion.div
+              initial="initial"
+              animate="animate"
+              variants={cardVariants}
+            >
+              <ApiKeyCard onKeysChange={() => {}} />
             </motion.div>
           </motion.div>
 

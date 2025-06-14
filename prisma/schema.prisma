@@ -17,15 +17,14 @@ model User {
 
   displayName String?
   bio         String?
-  
   theme               String  @default("system")
   defaultPastePublic  Boolean @default(true)
   emailNotifications  Boolean @default(true)
-  
   showEmail          Boolean @default(false)
   allowPublicProfile Boolean @default(true)
 
   pastes Paste[]
+  apiKeys ApiKey[]
 
   @@map("users")
 }
@@ -43,4 +42,22 @@ model Paste {
   user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@map("pastes")
+}
+
+model ApiKey {
+  id          String    @id @default(cuid())
+  title       String
+  keyHash     String    @unique
+  keyPreview  String
+  description String?
+  expiresAt   DateTime?
+  isActive    Boolean   @default(true)
+  lastUsedAt  DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("api_keys")
 }
