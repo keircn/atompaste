@@ -15,17 +15,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://atom.slop.sh"),
+  metadataBase: new URL("https://atom.keiran.cc"),
   title: "atompaste",
   description: "Free and open-source pastebin for developers",
   openGraph: {
     title: "atompaste",
     description: "Free and open-source pastebin for developers",
-    url: "https://atom.slop.sh",
+    url: "https://atom.keiran.cc",
     siteName: "atompaste",
     /* images: [
       {
-        url: "https://atom.slop.sh/og-image.png",
+        url: "https://atom.keiran.cc/og-image.png",
         width: 1200,
         height: 630,
         alt: "atompaste - Free and open-source pastebin for developers",

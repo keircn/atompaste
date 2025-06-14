@@ -86,7 +86,7 @@ export default function ApiDocsPage() {
                     <Globe className="h-5 w-5 mx-2" />
                     <div>
                       <p className="font-medium">Base URL</p>
-                      <p className="text-sm text-muted-foreground">https://atom.slop.sh</p>
+                      <p className="text-sm text-muted-foreground">https://atom.keiran.cc</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 p-3 border rounded-lg">
@@ -159,7 +159,7 @@ export default function ApiDocsPage() {
                     </ul>
                   </div>
                   <CodeBlock
-                    code={`curl -X GET "https://atom.slop.sh/api/pastes?page=1&limit=10&search=javascript" \\
+                    code={`curl -X GET "https://atom.keiran.cc/api/pastes?page=1&limit=10&search=javascript" \\
   -H "Authorization: Bearer atp_your_api_key_here"`}
                     id="get-pastes"
                   />
@@ -173,7 +173,7 @@ export default function ApiDocsPage() {
                   </div>
                   <p className="text-sm text-muted-foreground">Create a new paste.</p>
                   <CodeBlock
-                    code={`curl -X POST "https://atom.slop.sh/api/pastes" \\
+                    code={`curl -X POST "https://atom.keiran.cc/api/pastes" \\
   -H "Authorization: Bearer atp_your_api_key_here" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -194,7 +194,7 @@ export default function ApiDocsPage() {
                   </div>
                   <p className="text-sm text-muted-foreground">Retrieve a specific paste by ID.</p>
                   <CodeBlock
-                    code={`curl -X GET "https://atom.slop.sh/api/pastes/paste_id_here" \\
+                    code={`curl -X GET "https://atom.keiran.cc/api/pastes/paste_id_here" \\
   -H "Authorization: Bearer atp_your_api_key_here"`}
                     id="get-paste"
                   />
@@ -208,7 +208,7 @@ export default function ApiDocsPage() {
                   </div>
                   <p className="text-sm text-muted-foreground">Update an existing paste (owner only).</p>
                   <CodeBlock
-                    code={`curl -X PUT "https://atom.slop.sh/api/pastes/paste_id_here" \\
+                    code={`curl -X PUT "https://atom.keiran.cc/api/pastes/paste_id_here" \\
   -H "Authorization: Bearer atp_your_api_key_here" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -228,7 +228,7 @@ export default function ApiDocsPage() {
                   </div>
                   <p className="text-sm text-muted-foreground">Delete a paste (owner only).</p>
                   <CodeBlock
-                    code={`curl -X DELETE "https://atom.slop.sh/api/pastes/paste_id_here" \\
+                    code={`curl -X DELETE "https://atom.keiran.cc/api/pastes/paste_id_here" \\
   -H "Authorization: Bearer atp_your_api_key_here"`}
                     id="delete-paste"
                   />
@@ -330,7 +330,7 @@ export default function ApiDocsPage() {
                 <div className="space-y-2">
                   <p className="text-sm font-medium">JavaScript/Node.js:</p>
                   <CodeBlock
-                    code={`const response = await fetch('https://atom.slop.sh/api/pastes', {
+                    code={`const response = await fetch('https://atom.keiran.cc/api/pastes', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer atp_your_api_key_here',
@@ -356,7 +356,7 @@ console.log('Paste created:', data.paste.id);`}
                   <CodeBlock
                     code={`import requests
 
-response = requests.post('https://atom.slop.sh/api/pastes', 
+response = requests.post('https://atom.keiran.cc/api/pastes', 
     headers={
         'Authorization': 'Bearer atp_your_api_key_here',
         'Content-Type': 'application/json'
