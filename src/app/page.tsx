@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useAuth } from '~/lib/auth-context';
-import { UserMenu } from '~/components/auth/user-menu';
+import { Header } from '~/components/Header';
 import { Button } from '~/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 
@@ -21,31 +21,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-border bg-card">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-foreground">atompaste</h1>
-            <p className="text-sm text-muted-foreground">
-              Free and open-source pastebin for developers
-            </p>
-          </div>
-          
-          <div>
-            {user ? (
-              <UserMenu />
-            ) : (
-              <div className="flex items-center gap-2">
-                <Button asChild variant="outline">
-                  <Link href="/login">Sign In</Link>
-                </Button>
-                <Button asChild>
-                  <Link href="/register">Sign Up</Link>
-                </Button>
-              </div>
-            )}
-          </div>
-        </div>
-      </header>
+      <Header />
 
       <main className="container mx-auto px-4 py-8">
         {user ? (

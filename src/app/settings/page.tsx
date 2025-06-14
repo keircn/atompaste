@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '~/lib/auth-context';
-import { useTheme } from '~/components/theme-provider';
+import { useTheme } from '~/components/ThemeProvider';
+import { Header } from '~/components/Header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
@@ -50,6 +51,24 @@ export default function SettingsPage() {
   const [passwordLoading, setPasswordLoading] = useState(false);
   const [passwordError, setPasswordError] = useState('');
   const [passwordSuccess, setPasswordSuccess] = useState('');
+  const [dataLoading, setDataLoading] = useState(true);
+
+  const fetchUserData = async () => {
+    try {
+      const response = await fetch('/api/auth/me');
+      const data = await response.json();
+      
+      if (data.user) {} // this is so scuffed
+    } catch (error) {
+      console.error('Failed to fetch user data:', error);
+    } finally {
+      setDataLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
   useEffect(() => {
     if (!user) {
@@ -64,6 +83,7 @@ export default function SettingsPage() {
         showEmail: user.showEmail ?? false,
         allowPublicProfile: user.allowPublicProfile ?? true,
       });
+      setDataLoading(false);
     }
   }, [user, router, theme]);
 
@@ -173,7 +193,7 @@ export default function SettingsPage() {
     }
   };
 
-  if (!user) {
+  if (!user || dataLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -186,20 +206,12 @@ export default function SettingsPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card">
-        <div className="container mx-auto px-4 py-4">
-          <h1 className="text-2xl font-bold text-foreground">Account Settings</h1>
-          <p className="text-sm text-muted-foreground">
-            Manage your account preferences and security settings
-          </p>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-8 max-w-4xl">
+      <Header 
+        title="Account Settings" 
+        subtitle="Manage your account preferences and security settings" 
+      />
+      <main className="container mx-auto px-4 py-8 max-w-6xl">
         <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-3">
-          {/* Profile Settings */}
           <div className="lg:col-span-2 space-y-6">
             <Card>
               <CardHeader>
@@ -296,7 +308,6 @@ export default function SettingsPage() {
               </CardContent>
             </Card>
 
-            {/* Preferences */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -346,7 +357,6 @@ export default function SettingsPage() {
               </CardContent>
             </Card>
 
-            {/* Privacy Settings */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -392,7 +402,6 @@ export default function SettingsPage() {
               </CardContent>
             </Card>
 
-            {/* Notifications */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -423,9 +432,7 @@ export default function SettingsPage() {
             </Card>
           </div>
 
-          {/* Security & Account Actions */}
           <div className="space-y-6">
-            {/* Change Password */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -502,7 +509,6 @@ export default function SettingsPage() {
               </CardContent>
             </Card>
 
-            {/* Account Actions */}
             <Card>
               <CardHeader>
                 <CardTitle>Account Actions</CardTitle>
