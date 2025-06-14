@@ -11,18 +11,13 @@ import {
   Key, 
   Plus, 
   Copy, 
-  Trash2, 
-  Eye, 
-  EyeOff, 
+  Trash2,
   Calendar,
   AlertTriangle,
   Check
 } from 'lucide-react';
 import { 
-  cardVariants, 
-  buttonVariants, 
-  inputVariants, 
-  itemVariants 
+  cardVariants,
 } from '~/lib/animations';
 
 interface ApiKey {
@@ -112,29 +107,25 @@ export function ApiKeyCard({ onKeysChange }: ApiKeyCardProps) {
     }
   };
 
-  const handleDeleteKey = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this API key? This action cannot be undone.')) {
-      return;
-    }
-
+const handleDeleteKey = async (id: string) => {
     try {
-      const response = await fetch(`/api/user/api-keys/${id}`, {
-        method: 'DELETE',
-      });
+        const response = await fetch(`/api/user/api-keys/${id}`, {
+            method: 'DELETE',
+        });
 
-      if (response.ok) {
-        setApiKeys(prev => prev.filter(key => key.id !== id));
-        setSuccess('API key deleted successfully!');
-        onKeysChange();
-        setTimeout(() => setSuccess(''), 3000);
-      } else {
-        const data = await response.json();
-        setError(data.error || 'Failed to delete API key');
-      }
+        if (response.ok) {
+            setApiKeys(prev => prev.filter(key => key.id !== id));
+            setSuccess('API key deleted successfully!');
+            onKeysChange();
+            setTimeout(() => setSuccess(''), 3000);
+        } else {
+            const data = await response.json();
+            setError(data.error || 'Failed to delete API key');
+        }
     } catch (err) {
-      setError('Failed to delete API key');
+        setError('Failed to delete API key');
     }
-  };
+};
 
   const copyToClipboard = async (text: string, keyId: string) => {
     try {
@@ -198,7 +189,7 @@ export function ApiKeyCard({ onKeysChange }: ApiKeyCardProps) {
             API Keys
           </CardTitle>
           <CardDescription>
-            Manage your API keys for programmatic access to AtomPaste
+            Manage your API keys for programmatic access to atompaste
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">

@@ -1,27 +1,38 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { useAuth } from '~/lib/auth-context';
-import { Header } from '~/components/Header';
-import { Button } from '~/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
-import { pageVariants, cardVariants, buttonVariants, itemVariants, containerVariants, spinnerVariants } from '~/lib/animations';
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { useAuth } from "~/lib/auth-context";
+import { Header } from "~/components/Header";
+import { Button } from "~/components/ui/button";
+import {
+  Code,
+  Globe,
+  ArrowRight,
+  FileText,
+} from "lucide-react";
+import {
+  pageVariants,
+  buttonVariants,
+  itemVariants,
+  containerVariants,
+  spinnerVariants,
+} from "~/lib/animations";
 
 export default function Home() {
   const { user, loading } = useAuth();
 
   if (loading) {
     return (
-      <motion.div 
+      <motion.div
         className="min-h-screen flex items-center justify-center"
         initial="initial"
         animate="animate"
         variants={pageVariants}
       >
         <div className="text-center">
-          <motion.div 
-            className="rounded-full h-8 w-8 border-b-2 border-primary mx-auto" 
+          <motion.div
+            className="rounded-full h-8 w-8 border-b-2 border-primary mx-auto"
             animate="animate"
             variants={spinnerVariants}
           />
@@ -31,7 +42,7 @@ export default function Home() {
   }
 
   return (
-    <motion.div 
+    <motion.div
       className="min-h-screen bg-background"
       initial="initial"
       animate="animate"
@@ -39,122 +50,132 @@ export default function Home() {
     >
       <Header />
 
-      <main className="container mx-auto px-4 py-8">
-        {user ? (
+      <main className="container mx-auto px-4 py-8 justify-center flex flex-col min-h-[calc(100vh-128px)]">
+        <motion.div
+          initial="initial"
+          animate="animate"
+          variants={containerVariants}
+          className="space-y-16"
+        >
           <motion.div
-            initial="initial"
-            animate="animate"
-            variants={cardVariants}
+            variants={itemVariants}
+            className="text-center space-y-8 py-12"
           >
-            <Card className="max-w-2xl mx-auto">
-              <CardHeader>
-                <CardTitle>Welcome back, @{user.username}!</CardTitle>
-                <CardDescription>
-                  Ready to create some pastes? Your pastebin dashboard will be here.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <motion.div 
-                  className="space-y-4"
-                  initial="initial"
-                  animate="animate"
-                  variants={containerVariants}
-                >
-                  <motion.p 
-                    className="text-muted-foreground"
-                    variants={itemVariants}
+            <div className="space-y-4">
+              <motion.h1
+                className="text-4xl md:text-6xl font-bold"
+                variants={itemVariants}
+              >
+                atompaste
+              </motion.h1>
+              <motion.p
+                className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto"
+                variants={itemVariants}
+              >
+                The modern pastebin for developers
+              </motion.p>
+            </div>
+
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto"
+              variants={itemVariants}
+            >
+              {user ? (
+                <>
+                  <motion.div
+                    className="flex-1"
+                    whileHover="hover"
+                    whileTap="tap"
+                    variants={buttonVariants}
                   >
-                    This is where you'll be able to:
-                  </motion.p>
-                  <motion.ul 
-                    className="list-disc list-inside space-y-2 text-sm text-muted-foreground"
-                    variants={itemVariants}
-                  >
-                    <li>Create new code pastes</li>
-                    <li>View your paste history</li>
-                    <li>Manage your pastes</li>
-                    <li>Share code snippets with others</li>
-                  </motion.ul>
-                  <motion.div variants={itemVariants}>
-                    <motion.div
-                      whileHover="hover"
-                      whileTap="tap"
-                      variants={buttonVariants}
-                    >
-                      <Button className="w-full">
-                        Create New Paste (Coming Soon)
-                      </Button>
-                    </motion.div>
+                    <Button asChild size="lg" className="w-full">
+                      <Link href="/create">
+                        <Code className="h-5 w-5 mr-2" />
+                        Create Paste
+                      </Link>
+                    </Button>
                   </motion.div>
-                </motion.div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ) : (
-          <motion.div
-            initial="initial"
-            animate="animate"
-            variants={cardVariants}
-          >
-            <Card className="max-w-2xl mx-auto">
-              <CardHeader>
-                <CardTitle>Welcome to atompaste</CardTitle>
-                <CardDescription>
-                  A free and open-source pastebin for developers
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <motion.div 
-                  className="space-y-4"
-                  initial="initial"
-                  animate="animate"
-                  variants={containerVariants}
-                >
-                  <motion.p 
-                    className="text-muted-foreground"
-                    variants={itemVariants}
+                  <motion.div
+                    className="flex-1"
+                    whileHover="hover"
+                    whileTap="tap"
+                    variants={buttonVariants}
                   >
-                    Sign up or sign in to start using atompaste:
-                  </motion.p>
-                  <motion.ul 
-                    className="list-disc list-inside space-y-2 text-sm text-muted-foreground"
-                    variants={itemVariants}
-                  >
-                    <li>Create and share code snippets</li>
-                    <li>Syntax highlighting for multiple languages</li>
-                    <li>Private and public pastes</li>
-                    <li>No ads, completely free</li>
-                  </motion.ul>
-                  <motion.div 
-                    className="flex gap-2"
-                    variants={itemVariants}
-                  >
-                    <motion.div
-                      className="flex-1"
-                      whileHover="hover"
-                      whileTap="tap"
-                      variants={buttonVariants}
+                    <Button
+                      asChild
+                      variant="outline"
+                      size="lg"
+                      className="w-full"
                     >
-                      <Button asChild className="w-full">
-                        <Link href="/register">Get Started</Link>
-                      </Button>
-                    </motion.div>
-                    <motion.div
-                      className="flex-1"
-                      whileHover="hover"
-                      whileTap="tap"
-                      variants={buttonVariants}
-                    >
-                      <Button asChild variant="outline" className="w-full">
-                        <Link href="/login">Sign In</Link>
-                      </Button>
-                    </motion.div>
+                      <Link href="/dashboard">
+                        <FileText className="h-5 w-5 mr-2" />
+                        Dashboard
+                      </Link>
+                    </Button>
                   </motion.div>
-                </motion.div>
-              </CardContent>
-            </Card>
+                </>
+              ) : (
+                <>
+                  <motion.div
+                    className="flex-1"
+                    whileHover="hover"
+                    whileTap="tap"
+                    variants={buttonVariants}
+                  >
+                    <Button asChild size="lg" className="w-full">
+                      <Link href="/register">
+                        Get Started
+                        <ArrowRight className="h-5 w-5 ml-2" />
+                      </Link>
+                    </Button>
+                  </motion.div>
+                  <motion.div
+                    className="flex-1"
+                    whileHover="hover"
+                    whileTap="tap"
+                    variants={buttonVariants}
+                  >
+                    <Button
+                      asChild
+                      variant="outline"
+                      size="lg"
+                      className="w-full"
+                    >
+                      <Link href="/explore">
+                        <Globe className="h-5 w-5 mr-2" />
+                        Explore
+                      </Link>
+                    </Button>
+                  </motion.div>
+                </>
+              )}
+            </motion.div>
+
+            <motion.div
+              className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto pt-8"
+              variants={itemVariants}
+            >
+              <div className="text-center">
+                <div className="text-2xl font-bold text-primary">25+</div>
+                <div className="text-sm text-muted-foreground">Languages</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-primary">∞</div>
+                <div className="text-sm text-muted-foreground">
+                  Free Forever
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-primary">API</div>
+                <div className="text-sm text-muted-foreground">Access</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-primary">0</div>
+                <div className="text-sm text-muted-foreground">Ads</div>
+              </div>
+            </motion.div>
           </motion.div>
-        )}
+        </motion.div>
       </main>
     </motion.div>
   );
