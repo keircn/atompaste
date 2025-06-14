@@ -21,6 +21,13 @@ export async function GET() {
         id: user.id,
         email: user.email,
         username: user.username,
+        displayName: user.displayName,
+        bio: user.bio,
+        theme: user.theme,
+        defaultPastePublic: user.defaultPastePublic,
+        emailNotifications: user.emailNotifications,
+        showEmail: user.showEmail,
+        allowPublicProfile: user.allowPublicProfile,
         createdAt: user.createdAt,
       },
     });

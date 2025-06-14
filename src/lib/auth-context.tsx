@@ -7,6 +7,13 @@ interface User {
   id: string;
   email: string;
   username: string;
+  displayName?: string;
+  bio?: string;
+  theme?: string;
+  defaultPastePublic?: boolean;
+  emailNotifications?: boolean;
+  showEmail?: boolean;
+  allowPublicProfile?: boolean;
   createdAt: string;
 }
 

@@ -15,16 +15,13 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Profile settings
   displayName String?
   bio         String?
   
-  // Preferences
-  theme               String  @default("dark") // "light", "dark", "system"
+  theme               String  @default("system")
   defaultPastePublic  Boolean @default(true)
   emailNotifications  Boolean @default(true)
   
-  // Privacy settings
   showEmail          Boolean @default(false)
   allowPublicProfile Boolean @default(true)
 

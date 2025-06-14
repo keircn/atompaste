@@ -7,6 +7,16 @@ export interface CreateUserData {
   password: string;
 }
 
+export interface UpdateUserSettingsData {
+  displayName?: string;
+  bio?: string;
+  theme?: string;
+  defaultPastePublic?: boolean;
+  emailNotifications?: boolean;
+  showEmail?: boolean;
+  allowPublicProfile?: boolean;
+}
+
 export const userService = {
   async findByEmail(email: string) {
     return await prisma.user.findUnique({
@@ -40,5 +50,20 @@ export const userService = {
   
   async verifyPassword(password: string, hashedPassword: string) {
     return await bcrypt.compare(password, hashedPassword);
+  },
+
+  async updateSettings(userId: string, settings: UpdateUserSettingsData) {
+    return await prisma.user.update({
+      where: { id: userId },
+      data: settings,
+    });
+  },
+
+  async updatePassword(userId: string, newPassword: string) {
+    const hashedPassword = await bcrypt.hash(newPassword, 12);
+    return await prisma.user.update({
+      where: { id: userId },
+      data: { password: hashedPassword },
+    });
   },
 };

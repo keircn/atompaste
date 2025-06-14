@@ -1,11 +1,12 @@
 'use client';
 
+import Link from 'next/link';
 import { useAuth } from '~/lib/auth-context';
 import { Button } from '~/components/ui/button';
-import { LogOut, User } from 'lucide-react';
+import { Settings, User } from 'lucide-react';
 
 export function UserMenu() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
   if (!user) return null;
 
@@ -16,13 +17,15 @@ export function UserMenu() {
         <span className="text-muted-foreground">@{user.username}</span>
       </div>
       <Button
+        asChild
         variant="outline"
         size="sm"
-        onClick={logout}
         className="flex items-center gap-2"
       >
-        <LogOut className="h-4 w-4" />
-        Sign Out
+        <Link href="/settings">
+          <Settings className="h-4 w-4" />
+          Settings
+        </Link>
       </Button>
     </div>
   );
