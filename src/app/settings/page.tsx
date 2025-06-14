@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '~/lib/auth-context';
 import { useTheme } from '~/components/ThemeProvider';
 import { Header } from '~/components/Header';
@@ -14,6 +15,17 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~
 import { Separator } from '~/components/ui/separator';
 import { LogOut, Save, Lock, User, Bell, Eye, Palette } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { 
+  pageVariants, 
+  cardVariants, 
+  buttonVariants, 
+  inputVariants, 
+  containerVariants, 
+  itemVariants, 
+  notificationVariants,
+  spinnerVariants,
+  fadeInVariants 
+} from '~/lib/animations';
 
 interface UserSettings {
   displayName: string;
@@ -195,36 +207,75 @@ export default function SettingsPage() {
 
   if (!user || dataLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-2 text-muted-foreground">Loading...</p>
-        </div>
-      </div>
+      <motion.div 
+        className="min-h-screen flex items-center justify-center"
+        initial="initial"
+        animate="animate"
+        variants={pageVariants}
+      >
+        <motion.div 
+          className="text-center"
+          initial="initial"
+          animate="animate"
+          variants={cardVariants}
+        >
+          <motion.div 
+            className="rounded-full h-8 w-8 border-b-2 border-primary mx-auto"
+            animate="animate"
+            variants={spinnerVariants}
+          />
+          <motion.p 
+            className="mt-2 text-muted-foreground"
+            initial="initial"
+            animate="animate"
+            variants={fadeInVariants}
+          >
+            Loading...
+          </motion.p>
+        </motion.div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <motion.div 
+      className="min-h-screen bg-background"
+      initial="initial"
+      animate="animate"
+      variants={pageVariants}
+    >
       <Header 
         title="Account Settings" 
         subtitle="Manage your account preferences and security settings" 
       />
       <main className="container mx-auto px-4 py-8 max-w-6xl">
-        <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-3">
-          <div className="lg:col-span-2 space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <User className="h-5 w-5" />
-                  Profile Information
-                </CardTitle>
-                <CardDescription>
-                  Update your public profile information
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSettingsSubmit} className="space-y-4">
+        <motion.div 
+          className="grid gap-6 md:grid-cols-1 lg:grid-cols-3"
+          initial="initial"
+          animate="animate"
+          variants={containerVariants}
+        >
+          <motion.div 
+            className="lg:col-span-2 space-y-6"
+            variants={itemVariants}
+          >
+            <motion.div
+              initial="initial"
+              animate="animate"
+              variants={cardVariants}
+            >
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <User className="h-5 w-5" />
+                    Profile Information
+                  </CardTitle>
+                  <CardDescription>
+                    Update your public profile information
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <form onSubmit={handleSettingsSubmit} className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="username">Username</Label>
@@ -307,7 +358,13 @@ export default function SettingsPage() {
                 </form>
               </CardContent>
             </Card>
+            </motion.div>
 
+            <motion.div
+              initial="initial"
+              animate="animate"
+              variants={cardVariants}
+            >
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -356,7 +413,13 @@ export default function SettingsPage() {
                 </div>
               </CardContent>
             </Card>
+            </motion.div>
 
+            <motion.div
+              initial="initial"
+              animate="animate"
+              variants={cardVariants}
+            >
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -401,7 +464,13 @@ export default function SettingsPage() {
                 </div>
               </CardContent>
             </Card>
+            </motion.div>
 
+            <motion.div
+              initial="initial"
+              animate="animate"
+              variants={cardVariants}
+            >
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -430,9 +499,18 @@ export default function SettingsPage() {
                 </div>
               </CardContent>
             </Card>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <div className="space-y-6">
+          <motion.div 
+            className="space-y-6"
+            variants={itemVariants}
+          >
+            <motion.div
+              initial="initial"
+              animate="animate"
+              variants={cardVariants}
+            >
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -508,7 +586,13 @@ export default function SettingsPage() {
                 </form>
               </CardContent>
             </Card>
+            </motion.div>
 
+            <motion.div
+              initial="initial"
+              animate="animate"
+              variants={cardVariants}
+            >
             <Card>
               <CardHeader>
                 <CardTitle>Account Actions</CardTitle>
@@ -528,9 +612,10 @@ export default function SettingsPage() {
                 </Button>
               </CardContent>
             </Card>
-          </div>
-        </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       </main>
-    </div>
+    </motion.div>
   );
 }

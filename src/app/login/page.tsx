@@ -1,31 +1,60 @@
+'use client';
+
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { LoginForm } from '~/components/auth/LoginForm';
+import { pageVariants, cardVariants, textRevealVariants, buttonVariants } from '~/lib/animations';
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md space-y-8">
-        <div className="text-center">
+    <motion.div 
+      className="min-h-screen flex items-center justify-center bg-background py-12 px-4 sm:px-6 lg:px-8"
+      initial="initial"
+      animate="animate"
+      variants={pageVariants}
+    >
+      <motion.div 
+        className="w-full max-w-md space-y-8"
+        initial="initial"
+        animate="animate"
+        variants={cardVariants}
+      >
+        <motion.div 
+          className="text-center"
+          initial="initial"
+          animate="animate"
+          variants={textRevealVariants}
+        >
           <h1 className="text-3xl font-bold text-foreground">atompaste</h1>
           <p className="mt-2 text-muted-foreground">
             Free and open-source pastebin for developers
           </p>
-        </div>
+        </motion.div>
         
         <LoginForm />
         
-        <div className="text-center">
+        <motion.div 
+          className="text-center"
+          initial="initial"
+          animate="animate"
+          variants={textRevealVariants}
+        >
           <p className="text-sm text-muted-foreground">
             Don't have an account?{' '}
-            <Link 
-              href="/register" 
-              className="font-medium text-primary hover:underline"
+            <motion.span
+              whileHover="hover"
+              variants={buttonVariants}
             >
-              Sign up
-            </Link>
+              <Link 
+                href="/register" 
+                className="font-medium text-primary hover:underline"
+              >
+                Sign up
+              </Link>
+            </motion.span>
           </p>
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 }
